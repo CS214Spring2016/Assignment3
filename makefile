@@ -1,11 +1,11 @@
 COMPILER = gcc
 CCFLAGS = -Wall -g
 
-all: indexer
+all: index
 
-indexer:
-	$(COMPILER) $(CCFLAGS) -o indexer indexer.c
+index:
+	$(COMPILER) $(CCFLAGS) -o index indexer.c
 
 clean:
-	@rm -f indexer
+	@rm -f index
 	@rm -f *.o
