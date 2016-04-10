@@ -9,4 +9,7 @@ HashTable *createTable()
 }
 
 //insert new node into table
-void insert(HashTable *hashTable, char *token, char *filename)
+void insertTable(HashTable *hashTable, char *token, char *filename)
+{
+
+}

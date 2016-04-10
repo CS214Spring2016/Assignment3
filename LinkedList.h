@@ -1,5 +1,5 @@
-#ifndef _LINKEDLIST_H_
-#define _LINKEDLIST_H_
+#ifndef LINKEDLIST_H
+#define LINKEDLIST_H
 #include "Record.h"
 #include <string.h>
 #include <stdlib.h>
@@ -26,8 +26,10 @@ typedef struct LinkedList_ LinkedList;
 LinkedList *createList(CompareFunction compare);
 
 //preserve order insert
-void insert(LinkedList *list, Record *newRec);
+void insertList(LinkedList *list, Record *newRec);
 
 
 // //honestly who knows if we'll need this
 // void delete(Record *rec);
+
+#endif

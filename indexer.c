@@ -5,7 +5,9 @@
  *      Author: Michael Shafran
  *      Author: Pat Barrett
  */
-
+#include "hashtable.h"
+#include "Record.h"
+#include "LinkedList.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

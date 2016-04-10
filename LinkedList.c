@@ -39,7 +39,7 @@ LinkedList* createList(CompareFunction compare);
 
 
 //insert preserve order
-void insert(LinkedList *list, Record *newRec)
+void insertList(LinkedList *list, Record *newRec)
 {
 	int compVal;
 	Node *temp;

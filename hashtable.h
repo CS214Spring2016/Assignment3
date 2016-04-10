@@ -1,4 +1,7 @@
+#ifndef HASHTABLE_H
+#define HASHTABLE_H
 #include "Record.h"
+#include "LinkedList.h"
 #include <stdio.h>
 
 //hashtable to store the information
@@ -28,7 +31,7 @@ HashTablePtr *createTablePtr();
 
 //insert into list
 //using token and filename
-void insert(HashTable *, Record *rec);
+void insertTable(HashTable *, Record *rec);
 
 //print file as text for now, no formatting yet
 //maybe lol
@@ -36,4 +39,7 @@ int printToFile(HashTablePtr *, FILE *);
 
 //free
 void destroyTable(HashTablePtr *);
+
+#endif
+
 
