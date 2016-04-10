@@ -56,7 +56,7 @@ void tokenizeInsert(char *filename, char *str)
 	}
 
 	printf("we got to the print to file place\n");
-	printToFile(ptr, outputFILE);
+	printToConsole(ptr);
 
 }
 
