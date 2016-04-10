@@ -116,43 +116,19 @@ void printToFile(HashTablePtr *ptr, FILE *file)
 void printToConsole(HashTablePtr *ptr)
 {
 	LinkedList *list;
-
-	printf("beep\n");
-	if(ptr == NULL)
-	{
-		printf("pointer is null");
-		return;
-	}
-	else
-	{
-		printf("pointer not null\n");
-		if(ptr->hashTable != NULL)
-		{
-			printf("hashtable not null\n");
-			list = ptr->hashTable->boxes[0];
-			if((list->head) != NULL)
-			{
-				printf("non null head");
-			}
-			
-		}
-		else
-		{
-			printf("hashtable null");
-		}
-	}
-
 	
-
-
 	for(int i = 0; i < 36; i++)
 	{
 		list = ptr->hashTable->boxes[i];
 
-		while(list->head != NULL)
+		if(list->head != NULL)
 		{
 			printf("Value in list: %s\n",list->head->record->token);
 			list->head = list->head->next;
+		}
+		else
+		{
+			printf("list head null");
 		}
 	}
 
