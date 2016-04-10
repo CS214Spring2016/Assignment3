@@ -35,10 +35,10 @@ void insertTable(HashTable *, Record *rec);
 
 //print file as text for now, no formatting yet
 //maybe lol
-int printToFile(HashTablePtr *, FILE *);
+void printToFile(HashTablePtr *, FILE *);
 
 //free
-void destroyTable(HashTablePtr *);
+//void destroyTable(HashTablePtr *);
 
 #endif
 

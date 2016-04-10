@@ -1,1 +1,1 @@
-this is a file with seven words
+The Con123mtents of this $test file are tHis SentEnce.

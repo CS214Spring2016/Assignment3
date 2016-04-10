@@ -1,19 +1,16 @@
 CC = gcc
-CCFLAGS = -Wall -g
+CCFLAGS = -Wall
 
 all: index
 
-index: indexer.o linkedlist.o Record.o hashtable.o
-	$(COMPILER) $(CCFLAGS) -o index indexer.o linkedlist.o Record.o hashtable.o
+index: indexer.o LinkedList.o Record.o hashtable.o
+	$(CC) $(CCFLAGS) -o index indexer.o LinkedList.o Record.o hashtable.o
 
 indexer.o: indexer.c Record.h LinkedList.h hashtable.h
 	$(CC) $(CCFLAGS) -c indexer.c
 
-linkedlist.o: LinkedList.c LinkedList.h Record.h
+LinkedList.o: LinkedList.c LinkedList.h Record.h
 	$(CC) $(CCFLAGS) -c LinkedList.c
-
-# tokenizer.o: tokenizer.c tokenizer.h
-# 	$(CC) $(CCFLAGS) -c tokenizer.c
 
 Record.o: Record.c Record.h
 	$(CC) $(CCFLAGS) -c Record.c

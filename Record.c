@@ -6,14 +6,14 @@
 //create
 Record *createRecord(char *fName, char *token, int frequency)
 {
-	Record *record = (Record *)malloc(sizeof(struct Record));
+	Record *record = (Record *)malloc(sizeof(struct Record_));
 
 	if(record == NULL)
 	{
 		return NULL;
 	}
 
-	record->filename = fName;
+	record->fileName = fName;
 	record->token = token;
 	record->freq = frequency;
 
@@ -22,17 +22,17 @@ Record *createRecord(char *fName, char *token, int frequency)
 }
 
 //compare to avoid duplicates
-int equals(Record *rec1, Record *rec2);
+int equals(Record *rec1, Record *rec2)
 {
 	int testVal;
-	Record *rec1 = (Record *)rec1;
-	Record *rec2 = (Record *)rec2;
+	Record *record1 = (Record *)rec1;
+	Record *record2 = (Record *)rec2;
 
-	testVal = strcmp(rec1->token, rec2->token);
+	testVal = strcmp(record1->token, record2->token);
 
 	if(testVal == 0)
 	{
-		testVal = strcmp(rec1->filename, rec2->filename);
+		testVal = strcmp(record1->fileName, record2->fileName);
 		return testVal;
 	}
 
@@ -46,7 +46,7 @@ void freeRecord(Record *rec)
 	if(rec != NULL)
 	{
 		free(rec->token);
-		free(rec->filename);
+		free(rec->fileName);
 		free(rec);
 	}
 }

@@ -22,9 +22,9 @@ Node* createNode(Record *record, Node *next)
 
 }
 
-LinkedList* createList(CompareFunction compare);
+LinkedList* createList(CompareFunction compare)
 {
-	LinkedList *list = (LinkedList*)malloc(sizeof(struct LinkedList));
+	LinkedList *list = (LinkedList*)malloc(sizeof(struct LinkedList_));
 	if(list != NULL)
 	{
 		list->head = NULL;
