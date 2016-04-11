@@ -23,14 +23,10 @@ void insertTable(HashTable *hashTable, Record *rec)
 	int ascZero = 48;
 	int ascA = 97;
 
-	if(isalpha(rec->token[0]) == 0)
-	{
-		i = (int)rec->token[0] - ascA;
-	}
-	else
-	{
-		i = (int)rec->token[0] - ascZero + 26;
-	}
+	i = isalpha(rec->token[0]) == 0 ? (int)rec->token[0] - ascZero + 26 : ((int)rec->token[0] - ascA);
+	//printf("trying to insert %s at location %d\n", rec->token, i);
+	
+
 
 	list = hashTable->boxes[i];
 
@@ -66,7 +62,7 @@ HashTablePtr *createTablePtr()
 
 void printToFile(HashTablePtr *ptr, FILE *file)
 {
-	Record *rec;
+	//Record *rec;
 	LinkedList *list;
 	char *token;
 	int count;
@@ -120,8 +116,18 @@ void printToConsole(HashTablePtr *ptr)
 	for(int i = 0; i < 36; i++)
 	{
 		list = ptr->hashTable->boxes[i];
-
-		printf("test: %d\n", (int)list->head);
+		if(((Node*)(list) == NULL))
+		{
+			//printf("head null at value: %d\n", i);
+		}
+		else
+		{
+			while(list->head != NULL)
+			{
+				printf("token: %s, filename: %s, frequency: %d hashtable index: %d\n", list->head->record->token, list->head->record->fileName, list->head->record->freq, i);
+				list->head = list->head->next;
+			}
+		}
 	}
 
 	return;

@@ -19,7 +19,7 @@ Node* createNode(Record *record, Node *);
 struct LinkedList_
 {
 	CompareFunction compareFunction;
-	Node *head;
+	Node* head;
 };
 typedef struct LinkedList_ LinkedList;
 
