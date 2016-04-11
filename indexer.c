@@ -52,6 +52,7 @@ void tokenizeInsert(char *filename, char *str)
 	{
 		Record *rec = createRecord(filename, token, 1);
 		insertTable(ptr->hashTable, rec);
+		printf("it appears as if insert into hash table succeeded\n");
 		token = strtok(NULL,delims);
 	}
 

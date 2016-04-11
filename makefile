@@ -20,4 +20,5 @@ hashtable.o: hashtable.c hashtable.h Record.h LinkedList.h
 
 clean:
 	@rm -f index
+	@rm -rf *.dSYM
 	@rm -f *.o

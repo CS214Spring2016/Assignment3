@@ -121,15 +121,7 @@ void printToConsole(HashTablePtr *ptr)
 	{
 		list = ptr->hashTable->boxes[i];
 
-		if(list->head != NULL)
-		{
-			printf("Value in list: %s\n",list->head->record->token);
-			list->head = list->head->next;
-		}
-		else
-		{
-			printf("list head null");
-		}
+		printf("test: %d\n", (int)list->head);
 	}
 
 	return;
