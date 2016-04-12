@@ -8,7 +8,7 @@
 //constructor
 HashTable *createTable()
 {
-	return (HashTable*)malloc(sizeof(struct HashTable));
+	return (HashTable*)calloc(1000,sizeof(struct HashTable));
 }
 
 //insert new node into table

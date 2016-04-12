@@ -67,7 +67,8 @@ void tokenizeInsert(char *filename, char *str)
 int doFileStuff(char * givenPath){
 
 		FILE *givenFile = fopen(givenPath, "r");
-		char buff[2000];
+		//HashTablePtr *ptr = (HashTablePtr*)malloc(sizeof(struct HashTablePtr));
+		char *buff = (char*)calloc(2000,sizeof(char));
 
 		printf("opening %s:\n", givenPath);
 
@@ -150,8 +151,8 @@ int doDirectoryStuff(char * directorypath){
 int main(int argc, char **argv)
 {	
 	//FILE *invIndFile;
-//	FILE *givenFile;
-//	char buff[2000];
+	//	FILE *givenFile;
+	//	char buff[2000];
 	//char* givenIndName = argv[1];
 	char* givenPath = argv[2];
 	htptr = createTablePtr();

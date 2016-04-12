@@ -6,7 +6,7 @@
 
 Node* createNode(Record *record, Node *next)
 {
-	Node* node = (Node*)malloc(sizeof(struct Node));
+	Node* node = (Node*)calloc(1000, sizeof(struct Node));
 	
 	//malloc fail check
 	if(node != NULL)
@@ -24,7 +24,7 @@ Node* createNode(Record *record, Node *next)
 
 LinkedList* createList(CompareFunction compare)
 {
-	LinkedList *list = (LinkedList*)malloc(sizeof(struct LinkedList_));
+	LinkedList *list = (LinkedList*)calloc(1000,sizeof(struct LinkedList_));
 	if(list != NULL)
 	{
 		list->head = NULL;
