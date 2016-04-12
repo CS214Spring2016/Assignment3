@@ -14,6 +14,8 @@
 #include <string.h>
 #include <dirent.h>
 #include <errno.h>
+#include <sys/stat.h>
+HashTablePtr *htptr;
 
 void toLowercase(char *str)
 {
@@ -41,7 +43,7 @@ void tokenizeInsert(char *filename, char *str)
 	FILE *outputFILE;
 	outputFILE = fopen("outputFILE.txt", "a+");
 
-	HashTablePtr *ptr = createTablePtr();
+
 
 
 	//first token
@@ -51,23 +53,108 @@ void tokenizeInsert(char *filename, char *str)
 	while(token != NULL)
 	{
 		Record *rec = createRecord(filename, token, 1);
-		insertTable(ptr->hashTable, rec);
+		insertTable(htptr->hashTable, rec);
 		//printf("it appears as if insert into hash table succeeded\n");
 		token = strtok(NULL,delims);
 	}
 
 	printf("we got to the print to file place\n");
-	printToConsole(ptr);
+
+
+}
+
+
+int doFileStuff(char * givenPath){
+
+		FILE *givenFile = fopen(givenPath, "r");
+		char buff[2000];
+
+		printf("opening %s:\n", givenPath);
+
+		//in which we open the text file and attempt to tokenize it
+		fgets(buff, 2000, (FILE*)givenFile);
+		toLowercase(buff);
+		stripNonAlpha(buff);
+
+		printf("about to try hash table shit\n");
+		tokenizeInsert(givenPath,buff);
+
+
+	return 1;
+
+}
+int doDirectoryStuff(char * directorypath){
+	strcat(directorypath,"/");
+	char *safetoedit = malloc(strlen(directorypath) + 1);
+	strcpy(safetoedit,directorypath);
+
+
+	DIR* dir;
+	struct dirent * drt;
+
+	if ((dir = opendir(directorypath))==NULL){
+		printf("Couldnt Open\n");
+		return 0;
+	}
+	do{
+		if ((drt = readdir(dir)) != NULL) {
+			strcpy(safetoedit,directorypath);
+
+			if(drt->d_type == DT_REG){
+				printf("ive found anotha file");
+				strcat(safetoedit,drt->d_name);
+				printf("%s\n",safetoedit);
+				doFileStuff(safetoedit);
+			}
+			else if(drt->d_type == DT_DIR){
+				if( !strcmp(drt->d_name, ".") || !strcmp(drt->d_name, "..") ){
+
+				}
+				else{
+				printf("ive found anotha directory\n");
+				strcat(safetoedit,drt->d_name);
+				printf("%s\n",safetoedit);
+				doDirectoryStuff(safetoedit);
+				}
+
+			}
+		}
+
+
+	}while(drt != NULL);
+
+
+
+//	while(dir != NULL)
+//	{
+//		char * newpath = strcat(directorypath,drt->d_name);
+//		printf("%s\n", newpath);
+//		if(drt->d_type == DT_REG){
+//			printf("ive found anotha file");
+//			doFileStuff(newpath);
+//		}
+//		else if(drt->d_type == DT_DIR){
+//			printf("ive found anotha directory");
+//			doDirectoryStuff(newpath);
+//		}
+//		drt = readdir(dir);
+//	}
+	free(safetoedit);
+	closedir(dir);
+
+
+	return 1;
 
 }
 
 int main(int argc, char **argv)
 {	
 	//FILE *invIndFile;
-	FILE *givenFile;
-	char buff[2000];
+//	FILE *givenFile;
+//	char buff[2000];
 	//char* givenIndName = argv[1];
 	char* givenPath = argv[2];
+	htptr = createTablePtr();
 
 	if(argc != 3)
 	{
@@ -77,24 +164,43 @@ int main(int argc, char **argv)
 
 	// invIndFile = fopen(givenIndName, "a+");
 	// fclose(invIndFile);
+	//TODO file not found and check if file vs directory
+
+	struct stat s;
+	if( stat(givenPath,&s) == 0 )
+	{
+	    if( s.st_mode & S_IFDIR )
+	    {
+	        printf("Youre a directory, harry.\n");
+	        doDirectoryStuff(givenPath);
+
+	    }
+	    else if( s.st_mode & S_IFREG )
+	    {
+	    	printf("Youre a file, harry.\n");
+	    	doFileStuff(givenPath);
+	    }
+	    else
+	    {
+	    	printf("Something else");
+	    }
+	}
+	else
+	{
+		printf("error");
+	}
+
 	
-	givenFile = fopen(givenPath, "r");
 
-	printf("opening %s:\n", givenPath);
-
-	//in which we open the text file and attempt to tokenize it
-	fgets(buff, 2000, (FILE*)givenFile);
-	toLowercase(buff);
-	stripNonAlpha(buff);
-
-	printf("about to try hash table shit\n");
-	tokenizeInsert(givenPath,buff);
+	printToConsole(htptr);
 
 
 	//printf("should be all lowercase below:\n%s\n",buff);
 
 
 }
+
+
 
 //DT_REG .. regular file
 //DT_DIR .. directory
