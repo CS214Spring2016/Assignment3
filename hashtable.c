@@ -60,59 +60,65 @@ HashTablePtr *createTablePtr()
 	}
 }
 
-void printToFile(HashTablePtr *ptr, FILE *file)
+//void printToFile(HashTablePtr *ptr, FILE *file)
+//{
+//	//Record *rec;
+//	LinkedList *list;
+//	char *token;
+//	int count;
+//
+//	for(int i = 0; i < 36; i++)
+//	{
+//		count = 0;
+//		token = NULL;
+//
+//
+//		printf("assigning list");
+//		list = ptr->hashTable->boxes[i];
+//
+//		printf("about to enter while loop\n");
+//
+//		if(list == NULL)
+//		{
+//			printf("list head null\n");
+//			break;
+//		}
+//		while(list != NULL)
+//		{
+//			printf("while loop entered\n");
+//			if(token == NULL || strcmp(list->head->record->token, token) != 0)
+//			{
+//				printf("entered null check for token and strcmp\n");
+//				count = 1;
+//				token = list->head->record->token;
+//				fprintf(file, "<list> %s \n%s %d", token, list->head->record->fileName, list->head->record->freq);
+//				fprintf(file, "\n</list>\n");
+//			}
+//			else
+//			{
+//				printf("entered else condition\n");
+//				if(count < 5)
+//				{
+//					fprintf(file, "<list> %s \n%s %d", token, list->head->record->fileName, list->head->record->freq);
+//					count++;
+//				}
+//			}
+//		}
+//
+//		printf("apparently list head is null\n");
+//	}
+//
+//}
+
+void printToConsole(HashTablePtr *ptr, FILE * f)
 {
-	//Record *rec;
 	LinkedList *list;
-	char *token;
-	int count;
-
-	for(int i = 0; i < 36; i++)
-	{
-		count = 0;
-		token = NULL;
-
-
-		printf("assigning list");
-		list = ptr->hashTable->boxes[i];
-
-		printf("about to enter while loop\n");
-
-		if(list->head == NULL)
-		{
-			printf("list head null\n");
-		}
-		while(list->head != NULL)
-		{
-			printf("while loop entered\n");
-			if(token == NULL || strcmp(list->head->record->token, token) != 0)
-			{
-				printf("entered null check for token and strcmp\n");
-				count = 1;
-				token = list->head->record->token;
-				fprintf(file, "<list> %s \n%s %d", token, list->head->record->fileName, list->head->record->freq);
-				fprintf(file, "\n</list>\n");
-			}
-			else
-			{
-				printf("entered else condition\n");
-				if(count < 5)
-				{
-					fprintf(file, "<list> %s \n%s %d", token, list->head->record->fileName, list->head->record->freq);
-					count++;
-				}
-			}
-		}
-
-		printf("apparently list head is null\n");
-	}
-
-}
-
-void printToConsole(HashTablePtr *ptr)
-{
-	LinkedList *list;
-	
+	fprintf(f, "{\"list\":[");
+	char * lastword;
+	char * word;
+	char * path;
+	int freq;
+	lastword = "zntzqkrjtdcglsb";
 	for(int i = 0; i < 36; i++)
 	{
 		list = ptr->hashTable->boxes[i];
@@ -124,11 +130,23 @@ void printToConsole(HashTablePtr *ptr)
 		{
 			while(list->head != NULL)
 			{
+				word = list->head->record->token;
+				path = list->head->record->fileName;
+				freq = list->head->record->freq;
+				if(!strcmp(word, lastword)){
+					fprintf(f,"{%s:%d}",path,freq);
+				}
+				else{
+					fprintf(f,"{%s:[\n{%s:%d}",word,path,freq);
+				}
 				printf("token: %s, filename: %s, frequency: %d hashtable index: %d\n", list->head->record->token, list->head->record->fileName, list->head->record->freq, i);
+				//fprintf(f,"token: %s, filename: %s, frequency: %d hashtable index: %d\n", list->head->record->token, list->head->record->fileName, list->head->record->freq, i);
 				list->head = list->head->next;
+
 			}
 		}
 	}
+	fprintf(f, "]}");
 
 	return;
 

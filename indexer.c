@@ -40,8 +40,6 @@ void tokenizeInsert(char *filename, char *str)
 {
 	const char delims[2] = " ";
 	char *token;
-	FILE *outputFILE;
-	outputFILE = fopen("outputFILE.txt", "a+");
 
 
 
@@ -64,7 +62,7 @@ void tokenizeInsert(char *filename, char *str)
 }
 
 
-int doFileStuff(char * givenPath){
+int doFileStuff(char * givenPath, char* filename){
 
 		FILE *givenFile = fopen(givenPath, "r");
 		//HashTablePtr *ptr = (HashTablePtr*)malloc(sizeof(struct HashTablePtr));
@@ -78,7 +76,7 @@ int doFileStuff(char * givenPath){
 		stripNonAlpha(buff);
 
 		printf("about to try hash table shit\n");
-		tokenizeInsert(givenPath,buff);
+		tokenizeInsert(filename,buff);
 
 
 	return 1;
@@ -105,7 +103,7 @@ int doDirectoryStuff(char * directorypath){
 				printf("ive found anotha file");
 				strcat(safetoedit,drt->d_name);
 				printf("%s\n",safetoedit);
-				doFileStuff(safetoedit);
+				doFileStuff(safetoedit,drt->d_name);
 			}
 			else if(drt->d_type == DT_DIR){
 				if( !strcmp(drt->d_name, ".") || !strcmp(drt->d_name, "..") ){
@@ -150,10 +148,10 @@ int doDirectoryStuff(char * directorypath){
 
 int main(int argc, char **argv)
 {	
-	//FILE *invIndFile;
+	FILE *invIndFile;
 	//	FILE *givenFile;
 	//	char buff[2000];
-	//char* givenIndName = argv[1];
+	char* givenIndName = argv[1];
 	char* givenPath = argv[2];
 	htptr = createTablePtr();
 
@@ -163,8 +161,8 @@ int main(int argc, char **argv)
 		return 0;
 	}
 
-	// invIndFile = fopen(givenIndName, "a+");
-	// fclose(invIndFile);
+	invIndFile = fopen(givenIndName, "w+");
+
 	//TODO file not found and check if file vs directory
 
 	struct stat s;
@@ -179,7 +177,7 @@ int main(int argc, char **argv)
 	    else if( s.st_mode & S_IFREG )
 	    {
 	    	printf("Youre a file, harry.\n");
-	    	doFileStuff(givenPath);
+	    	doFileStuff(givenPath,givenPath);
 	    }
 	    else
 	    {
@@ -193,9 +191,10 @@ int main(int argc, char **argv)
 
 	
 
-	printToConsole(htptr);
+	printToConsole(htptr,invIndFile);
+	//printToFile(htptr,);
 
-
+	fclose(invIndFile);
 	//printf("should be all lowercase below:\n%s\n",buff);
 
 

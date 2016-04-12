@@ -1,0 +1,7 @@
+Test 1 (single file):
+test 1 was performed on a single file in the root directory using the file "new.txt". The file contained the phrase: "This other are words.".
+The program outputted correctly and stripped the punctuation, as well as made everything lowercase.
+
+Test 2 (directory):
+Test 2 was performed on a directory (test) and contained the previous text file "new.txt" as well as "new2.txt".
+The program saw the repeated use of the word "this" and correctly identified it, as well as printing everything else correctly.
