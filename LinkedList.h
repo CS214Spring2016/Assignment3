@@ -30,6 +30,6 @@ void insertList(LinkedList *list, Record *newRec);
 
 
 // //honestly who knows if we'll need this
-//void delete(Record *rec);
+// void delete(Record *rec);
 
 #endif

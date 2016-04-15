@@ -39,7 +39,7 @@ void insertTable(HashTable *, Record *rec);
 void printToConsole(HashTablePtr *ptr, FILE *);
 
 //free
-void destroyTable(HashTablePtr *);
+//void destroyTable(HashTablePtr *);
 
 #endif
 

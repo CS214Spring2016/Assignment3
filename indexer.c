@@ -189,7 +189,6 @@ int main(int argc, char **argv)
 		printf("error");
 	}
 
-
 	
 
 	printToConsole(htptr,invIndFile);
@@ -197,9 +196,6 @@ int main(int argc, char **argv)
 
 	fclose(invIndFile);
 	//printf("should be all lowercase below:\n%s\n",buff);
-
-	destroyTable(htptr);
-	//free(htptr);
 
 
 }

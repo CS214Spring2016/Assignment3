@@ -40,7 +40,7 @@ void insertTable(HashTable *hashTable, Record *rec)
 
 HashTablePtr *createTablePtr()
 {
-	HashTablePtr *ptr = (HashTablePtr*)calloc(1,sizeof(struct HashTablePtr));
+	HashTablePtr *ptr = (HashTablePtr*)malloc(sizeof(struct HashTablePtr));
 
 	if(ptr == NULL)
 	{
@@ -113,7 +113,7 @@ HashTablePtr *createTablePtr()
 void printToConsole(HashTablePtr *ptr, FILE * f)
 {
 	LinkedList *list;
-	fprintf(f, "{\"list\":\n[");
+	fprintf(f, "{\"list\":[");
 	char * lastword;
 	char * word;
 	char * path;
@@ -134,10 +134,10 @@ void printToConsole(HashTablePtr *ptr, FILE * f)
 				path = list->head->record->fileName;
 				freq = list->head->record->freq;
 				if(!strcmp(word, lastword)){
-					fprintf(f,"{%s:%d}\n",path,freq);
+					fprintf(f,"{%s:%d}",path,freq);
 				}
 				else{
-					fprintf(f,"{%s:[\n{%s:%d}\n",word,path,freq);
+					fprintf(f,"{%s:[\n{%s:%d}",word,path,freq);
 				}
 				printf("token: %s, filename: %s, frequency: %d hashtable index: %d\n", list->head->record->token, list->head->record->fileName, list->head->record->freq, i);
 				//fprintf(f,"token: %s, filename: %s, frequency: %d hashtable index: %d\n", list->head->record->token, list->head->record->fileName, list->head->record->freq, i);
@@ -150,17 +150,6 @@ void printToConsole(HashTablePtr *ptr, FILE * f)
 
 	return;
 
-}
-
-
-void destroyTable(HashTablePtr *ptr)
-{
-	
-	if(ptr != NULL)
-	{
-		free(ptr->hashTable);
-		free(ptr);	
-	}
 }
 
 
