@@ -6,7 +6,7 @@
 //create
 Record *createRecord(char *fName, char *token, int frequency)
 {
-	Record *record = (Record *)malloc(sizeof(struct Record_));
+	Record *record = (Record *)calloc(1,sizeof(struct Record_));
 
 	if(record == NULL)
 	{
